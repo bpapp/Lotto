@@ -19,16 +19,24 @@ public class Lottery {
         Random generator = new Random();
 
         List<Integer> list = new ArrayList<Integer>();
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 5; ++i) {
             // from 0 to 89 thus must added one
             list.add(generator.nextInt(90) + 1);
+        }
+        
+        if (!checkElementsNumber(list)) {
+            System.err.println("elements numer not equal with five!");
+            return;
         }
         // sorting
         Collections.sort(list);
         System.out.println(Lottery.printOut(list));
     }
 
-    private static String printOut(List<Integer> list) {
+    public static String printOut(List<Integer> list) {
+        if (list == null)
+            throw new IllegalArgumentException("input list is null!");
+                
         StringBuilder sb = new StringBuilder();
         sb.append("Lottery numbers: ");
         for (int i = 0; i < list.size(); ++i) {
@@ -36,5 +44,9 @@ public class Lottery {
         }
 
         return sb.toString();
+    }
+    
+    public static boolean checkElementsNumber(List<Integer> list) {
+        return (list.size()==5) ? true : false;   
     }
 }
