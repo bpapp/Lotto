@@ -42,7 +42,7 @@ public class LotteryJUnitTest2 {
 
         for (int i = 0, j = 1; i < list.size() - 1; i++, j++) {
             if (list.get(i) > list.get(j) || list.get(i) == list.get(j)) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("multiple numbers or wrong ordering!");
             }
         }
     }
