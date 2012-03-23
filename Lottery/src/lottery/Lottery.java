@@ -14,39 +14,45 @@ import java.util.Random;
  * @author Papp család
  */
 public class Lottery {
- public static void main(String[] args) {
-       
-        Random generator = new Random();
+    
+public static List<Integer> doProduceRandomNumbers() {
+    
+    Random generator = new Random();
 
         List<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < 5; ++i) {
             // from 0 to 89 thus must added one
-            list.add(generator.nextInt(90) + 1);
+            int nextInt = generator.nextInt(90) + 1;
+            if (!list.contains(nextInt)) {
+                    list.add(nextInt);
+            }
+            else {
+                --i;
+            }
         }
-        
-        if (!checkElementsNumber(list)) {
-            System.err.println("elements numer not equal with five!");
-            return;
+
+        if (list.size() != 5) {
+            throw new IllegalArgumentException("elements numer not equal with five!");
         }
         // sorting
         Collections.sort(list);
-        System.out.println(Lottery.printOut(list));
-    }
+        return list;
+}
+    
+    public static void main(String[] args) {
 
-    public static String printOut(List<Integer> list) {
-        if (list == null)
+        List<Integer> list = Lottery.doProduceRandomNumbers();
+        // printing
+        if (list == null) {
             throw new IllegalArgumentException("input list is null!");
-                
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append("Lottery numbers: ");
         for (int i = 0; i < list.size(); ++i) {
             sb.append(list.get(i)).append(" ");
         }
 
-        return sb.toString();
-    }
-    
-    public static boolean checkElementsNumber(List<Integer> list) {
-        return (list.size()==5) ? true : false;   
+        System.out.println(sb.toString());
     }
 }
